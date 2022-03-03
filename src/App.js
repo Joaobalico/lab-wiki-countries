@@ -1,23 +1,24 @@
-import logo from './logo.svg';
 import './App.css';
+import Navbar from './components/Navbar/Navbar';
+import React, { useState } from 'react';
+import CountriesList from './components/CountriesList/CountriesList';
+import countriesJSON from './countries.json';
+import CountryDetails from './components/CountryDetails/CountryDetails';
+import { Routes, Route } from 'react-router-dom';
 
 function App() {
+  const [countries, setCountries] = useState(countriesJSON);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {console.log(countries[0].name.common)}
+      <Navbar />
+
+      <Routes>
+        <Route path="/" element={<CountriesList countries={countries} />} />
+
+        <Route path="/:alpha3Code" element={<CountryDetails countries={countries} />} />
+      </Routes>
     </div>
   );
 }
